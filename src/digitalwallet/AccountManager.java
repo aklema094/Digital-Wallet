@@ -1,7 +1,6 @@
 package digitalwallet;
 
 import java.sql.SQLException;
-import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +30,7 @@ public class AccountManager {
             ps.setLong(1, accN);
             ps.setInt(2, pin);
             ResultSet rs = ps.executeQuery();
-            if (isValidPin(accN, pin)) {
+            if (rs.next()) {
                 double currentBalance = rs.getDouble("balance");
                 if (amount <= currentBalance) {
                     PreparedStatement ps1 = con.prepareStatement("UPDATE accounts SET balance = balance - ? WHERE accNo = ?;");
@@ -71,7 +70,6 @@ public class AccountManager {
         int pin = sc.nextInt();
         try {
             con.setAutoCommit(false);
-
             if (isValidPin(accN, pin)) {
                 PreparedStatement ps2 = con.prepareStatement("UPDATE accounts SET balance = balance + ? WHERE accNo = ?;");
                 ps2.setInt(1, amount);

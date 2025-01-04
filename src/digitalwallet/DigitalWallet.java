@@ -3,8 +3,6 @@ package digitalwallet;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class DigitalWallet {
@@ -88,6 +86,7 @@ public class DigitalWallet {
                                 case 5:
                                     System.out.println("Logging Out");
                                     System.out.println("Thank you for using Digital Wallet");
+                                    System.exit(0);
                                     return;
                                 default:
                                     System.out.println("Invalid Choice!!! ");
@@ -104,6 +103,7 @@ public class DigitalWallet {
                 case 3:
                     System.out.println("Existing System....");
                     System.out.println("Thank you for using Digital Wallet");
+                    System.exit(0);
                     return;
                 default:
                     System.out.println("Invalid Choice");
@@ -112,7 +112,7 @@ public class DigitalWallet {
             }
 
         }
-
+        
     }
 
 }
