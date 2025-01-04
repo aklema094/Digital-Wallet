@@ -15,36 +15,14 @@ public class User {
     User(Connection con, Scanner sc) throws SQLException {
         this.con = con;
         this.sc = sc;
-        userMenu();
+     
     }
 
-    public void userMenu() throws SQLException {
+    
 
-        System.out.println("1. User Registration");
-        System.out.println("2. User Login");
-        System.out.println("3. Exit");
-
-        System.out.print("Choose an option : ");
-        int choice = sc.nextInt();
+    public void userRegistration() throws SQLException {
+        
         sc.nextLine();
-        switch (choice) {
-            case 1:
-                userRegistration(con, sc);
-                System.out.println("");
-                break;
-            case 3:
-                System.out.println("");
-                return;
-            default:
-                System.out.println("Invalid Choice");
-                break;
-
-        }
-
-    }
-
-    public void userRegistration(Connection con, Scanner sc) throws SQLException {
-
         System.out.print("Enter name: ");
         String name = sc.nextLine();
         System.out.print("Enter email: ");
@@ -54,7 +32,7 @@ public class User {
             email = sc.nextLine();
         }
 
-        if (isValid(con,email)) {
+        if (isValid(email)) {
             System.out.print("Enter password: ");
             String password = sc.nextLine();
             while (password.length() < 6) { // Basic password validation
@@ -78,15 +56,33 @@ public class User {
 
     }
     
-    public boolean isValid(Connection con, String email) throws SQLException{
+    public boolean isValid(String email) throws SQLException{
         
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM user WHERE email ='"+email+"'");
         if(rs.next()){
             return false;
-        }
-        
+        }      
         return true;
+    }
+    
+    public String Login() throws SQLException{
+        sc.nextLine();
+        System.out.print("Enter your email : ");
+        String emailId = sc.nextLine();
+        System.out.print("Enter Password : ");
+        String pass = sc.nextLine();
+        
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM user WHERE email = ? AND password = ?;");
+        ps.setString(1, emailId);
+        ps.setString(2, pass);    
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            System.out.println("Valid email");
+            return emailId;
+        }
+        System.out.println("Inavlid email or password!!!");
+        return null;
     }
 
 }
