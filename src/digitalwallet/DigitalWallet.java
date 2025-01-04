@@ -78,6 +78,8 @@ public class DigitalWallet {
                                     System.out.println("");
                                     break;
                                 case 3:
+                                    accM.transferMoney(accNumber);
+                                    System.out.println("");
                                     break;
                                 case 4:
                                     accM.getBalance(accNumber);
