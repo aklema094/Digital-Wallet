@@ -18,9 +18,10 @@ public class DigitalWallet {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, userName, password);
         String email;
-        long acc_number;
+        long accNumber;
 
         User user = new User(con, sc);
+        Accounts acc = new Accounts(con, sc);
 
         while (true) {
             System.out.println("WELCOME TO DIGITAL WALLET");
@@ -35,7 +36,59 @@ public class DigitalWallet {
                     System.out.println("");
                     break;
                 case 2:
-                    user.Login();
+                    email = user.Login();
+                    if (email != null) {
+                        System.out.println("");
+                        System.out.println("User Loged In");
+                        if (!acc.isExist(email)) {
+                            System.out.println("");
+                            System.out.println("1. Open a new Account");
+                            System.out.println("2. Exit");
+                            int ch = sc.nextInt();
+                            if (ch == 1) {
+                                accNumber = acc.openAccount(email);
+                                System.out.println("Account is created Successfully");
+                                System.out.println("Your account number is : " + accNumber);
+                            } else {
+                                break;
+                            }
+
+                        }
+                        int ch2 = 0;
+                        while (ch2 != 5) {
+
+                            System.out.println("1. Debit Money");
+                            System.out.println("2. Credit Money");
+                            System.out.println("3. Transfer Money");
+                            System.out.println("4. Check Balance");
+                            System.out.println("5. LogOut");
+                            System.out.print("Choose an option : ");
+                            ch2 = sc.nextInt();
+
+                            switch (ch2) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                                case 5:
+                                    System.out.println("Logging Out");
+                                    System.out.println("Thank you for using Digital Wallet");
+                                    return;
+                                default:
+                                    System.out.println("Invalid Choice!!! ");
+                                    break;
+
+                            }
+
+                        }
+
+                    } else {
+                        System.out.println("Invalid email or password");
+                    }
                     break;
                 case 3:
                     System.out.println("Existing System....");

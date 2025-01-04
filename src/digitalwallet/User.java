@@ -32,7 +32,7 @@ public class User {
             email = sc.nextLine();
         }
 
-        if (isValid(email)) {
+        if (!isExist(email)) {
             System.out.print("Enter password: ");
             String password = sc.nextLine();
             while (password.length() < 6) { // Basic password validation
@@ -56,14 +56,14 @@ public class User {
 
     }
     
-    public boolean isValid(String email) throws SQLException{
+    public boolean isExist(String email) throws SQLException{
         
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM user WHERE email ='"+email+"'");
         if(rs.next()){
-            return false;
+            return true;
         }      
-        return true;
+        return false;
     }
     
     public String Login() throws SQLException{
@@ -78,10 +78,8 @@ public class User {
         ps.setString(2, pass);    
         ResultSet rs = ps.executeQuery();
         if(rs.next()){
-            System.out.println("Valid email");
             return emailId;
         }
-        System.out.println("Inavlid email or password!!!");
         return null;
     }
 
