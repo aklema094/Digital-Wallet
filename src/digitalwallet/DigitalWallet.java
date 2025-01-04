@@ -22,6 +22,7 @@ public class DigitalWallet {
 
         User user = new User(con, sc);
         Accounts acc = new Accounts(con, sc);
+        AccountManager accM = new AccountManager(con, sc);
 
         while (true) {
             System.out.println("WELCOME TO DIGITAL WALLET");
@@ -40,6 +41,7 @@ public class DigitalWallet {
                     if (email != null) {
                         System.out.println("");
                         System.out.println("User Loged In");
+                        System.out.println("");
                         if (!acc.isExist(email)) {
                             System.out.println("");
                             System.out.println("1. Open a new Account");
@@ -54,19 +56,19 @@ public class DigitalWallet {
                             }
 
                         }
+                        accNumber = acc.getAccountNumber(email);
                         int ch2 = 0;
                         while (ch2 != 5) {
-
-                            System.out.println("1. Debit Money");
-                            System.out.println("2. Credit Money");
+                            System.out.println("1. Withdraw Money");
+                            System.out.println("2. Add Money");
                             System.out.println("3. Transfer Money");
                             System.out.println("4. Check Balance");
                             System.out.println("5. LogOut");
                             System.out.print("Choose an option : ");
                             ch2 = sc.nextInt();
-
                             switch (ch2) {
                                 case 1:
+                                    accM.withdrawMoney(accNumber);
                                     break;
                                 case 2:
                                     break;

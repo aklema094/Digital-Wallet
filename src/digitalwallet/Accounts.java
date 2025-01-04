@@ -66,7 +66,7 @@ public class Accounts {
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT accNo FROM accounts WHERE email ='"+email+"'");
         if(rs.next()){
-            return rs.getInt(email);
+            return rs.getLong("accNo");
         }      
        throw new RuntimeException("Account doesn't exist");
     }
