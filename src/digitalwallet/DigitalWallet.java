@@ -51,6 +51,7 @@ public class DigitalWallet {
                                 accNumber = acc.openAccount(email);
                                 System.out.println("Account is created Successfully");
                                 System.out.println("Your account number is : " + accNumber);
+                                System.out.println("");
                             } else {
                                 break;
                             }
@@ -66,15 +67,21 @@ public class DigitalWallet {
                             System.out.println("5. LogOut");
                             System.out.print("Choose an option : ");
                             ch2 = sc.nextInt();
+                            System.out.println("");
                             switch (ch2) {
                                 case 1:
                                     accM.withdrawMoney(accNumber);
+                                    System.out.println("");
                                     break;
                                 case 2:
+                                    accM.addMoney(accNumber);
+                                    System.out.println("");
                                     break;
                                 case 3:
                                     break;
                                 case 4:
+                                    accM.getBalance(accNumber);
+                                    System.out.println("");
                                     break;
                                 case 5:
                                     System.out.println("Logging Out");
